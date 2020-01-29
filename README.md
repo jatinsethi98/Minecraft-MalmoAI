@@ -45,40 +45,48 @@ end of its journey.
 ### Goals and Milestones
 
 ```markdown
-Goal 1) Our minimum goal is to get our AI to be able 
+#### Goal 1) 
+Our minimum goal is to get our AI to be able 
 to find a randomly-placed diamond without any 
 obstruction in its path. The diamond can be placed 
 anywhere on the map, and our AI will have to find the 
 most efficient path to the diamond.
-Milestone 1) Create Minecraft kingdom where diamond 
-is randomly placed on the map. The AI must be able to 
-perceive the diamond and get to it.
-Milestone 2) The AI must now be able to identify the 
-most efficient path to the diamond and take that route 
-to the diamond. The AI must also be able to get back 
-to its initial location.
+#### Milestone 1) 
+Create Minecraft kingdom where diamond is randomly 
+placed on the map. The AI must be able to perceive 
+the diamond and get to it.
+#### Milestone 2) 
+The AI must now be able to identify the most efficient 
+path to the diamond and take that route to the diamond. 
+The AI must also be able to get back to its initial 
+location.
 
-Goal 2) Our realistic goal is to create an AI that can 
-fight off monsters, get past fences, open doors, and 
-more to reach the diamond and retreat back to its starting 
+#### Goal 2) 
+Our realistic goal is to create an AI that can fight 
+off monsters, get past fences, open doors, and more 
+to reach the diamond and retreat back to its starting 
 point. 
-Milestone 3) The AI must be able to identify the difference
+#### Milestone 3) 
+The AI must be able to identify the difference
 between a fence and door and appropriately handle the 
 obstruction. 
-Milestone 4) The AI must now be able to handle moving 
-monsters and attack them before the monster reaches the AI.
+#### Milestone 4) 
+The AI must now be able to handle moving monsters and
+attack them before the monster reaches the AI.
 
-Goal 3) Our stretch goal is to create an AI that can 
+#### Goal 3) 
+Our stretch goal is to create an AI that can 
 detect multiple diamonds and retrieve all of them, without 
 losing all lives. The obstructions the AI will need to 
 pass will have varying effects on the AI, and the algorithm
 will have to choose the path that causes the least damage 
 to its score.
-Milestone 5) Now we must implement the AI having multiple 
-lives. The AI needs to identify the path with least 
-obstruction and, on occasion, choose to lose one life if 
-that maximizes its score at the end. This will require 
-the AI to look ahead of its current stage and anticipate 
-how to best maximize its score.
+#### Milestone 5) 
+Now we must implement the AI having multiple lives. The 
+AI needs to identify the path with least obstruction 
+and, on occasion, choose to lose one life if that maximizes
+its score at the end. This will require the AI to look 
+ahead of its current stage and anticipate how to best 
+maximize its score.
 
 ```
