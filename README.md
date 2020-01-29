@@ -6,13 +6,17 @@ Team Members: Daanya Anand, Jatin Sethi, Ryan Feigenbaum
 ### Summary
 
 ```markdown
-For our project this quarter, we will be choosing option 1, Malmo Minecraft. 
-Our problem for the AI to solve will be to locate, find a path to, and 
-obtain the diamond on the map. It must then make its way back to the starting 
-location. In its way will be obstacles such as fences, enemy mobs, and doors. 
-This project can be changed and adapted to different goal states, in that we 
-could set the goal to be a variety of different things, such as going through 
-a nether portal, or finding gold instead of diamonds.
+For our project this quarter, we will be choosing 
+option 1, Malmo Minecraft. Our problem for the 
+AI to solve will be to locate, find a path to, and 
+obtain the diamond on the map. It must then make 
+its way back to the starting location. In its way 
+will be obstacles such as fences, enemy mobs, and 
+doors. This project can be changed and adapted to 
+different goal states, in that we could set the goal 
+to be a variety of different things, such as going 
+through a nether portal, or finding gold instead 
+of diamonds.
 ```
 
 ### Evaluation Plan
