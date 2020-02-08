@@ -1,3 +1,8 @@
+In order to use our code, just have a working malmo server, and run our agent with python project.py.
+
+
+
+
 ## Malmo Minecraft Project Proposal
 
 The website presents group 21's project proposal using Malmo Minecraft.
