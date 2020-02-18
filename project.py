@@ -1,7 +1,7 @@
 from __future__ import print_function
 # ------------------------------------------------------------------------------------------------
 # Copyright (c) 2016 Microsoft Corporation
-#
+# 
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 # associated documentation files (the "Software"), to deal in the Software without restriction,
 # including without limitation the rights to use, copy, modify, merge, publish, distribute,
@@ -54,8 +54,12 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
                   <FlatWorldGenerator generatorString="3;7,2*3,22;1;lava_lake"/>
 			<DrawingDecorator>
 				<DrawBlock x="2" y="3" z="2" type="diamond_block"/>
+                <DrawCuboid x1="-8" y1="3" z1="-12" x2="8" y2="10" z2="-12" type="planks"/>
+                <DrawCuboid x1="-8" y1="3" z1="12" x2="8" y2="10" z2="12" type="planks"/>
+                <DrawCuboid x1="8" y1="3" z1="12" x2="8" y2="10" z2="-12" type="planks"/>
+                <DrawCuboid x1="-8" y1="3" z1="12" x2="-8" y2="10" z2="-12" type="planks"/>
 			</DrawingDecorator>
-                  <ServerQuitFromTimeUp timeLimitMs="30000"/>
+                  <ServerQuitFromTimeUp timeLimitMs="10000"/>
                   <ServerQuitWhenAnyAgentFinishes/>
                 </ServerHandlers>
               </ServerSection>
@@ -129,7 +133,7 @@ while not world_state.has_mission_begun:
 
 print()
 print("Mission running ", end=' ')
-agent_host.sendCommand("pitch 0.2")
+#agent_host.sendCommand("pitch 0.2")
 # Loop until mission ends:
 len = 4
 while world_state.is_mission_running:
@@ -141,9 +145,9 @@ while world_state.is_mission_running:
         observations = json.loads(msg)
         grid = observations.get(u'floor3x3', 0)
         print(grid)        
-    agent_host.sendCommand("move 1")     
-    agent_host.sendCommand("strafe -1") 
-    agent_host.sendCommand("strafe -1") 
+   # agent_host.sendCommand("move 1")     
+   # agent_host.sendCommand("strafe -1") 
+   # agent_host.sendCommand("strafe -1") 
     time.sleep(0.1)
     world_state = agent_host.getWorldState()
     for error in world_state.errors:
