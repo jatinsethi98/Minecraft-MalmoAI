@@ -411,7 +411,7 @@ for imap in range(num_maps):
     my_mission_record = MalmoPython.MissionRecordSpec()
 
     my_clients = MalmoPython.ClientPool()
-    my_clients.add(MalmoPython.ClientInfo('127.0.0.1', 10001)) # add Minecraft machines here as available
+    my_clients.add(MalmoPython.ClientInfo('127.0.0.1', 10000)) # add Minecraft machines here as available
 
     # Attempt to start a mission:
     max_retries = 3
