@@ -58,6 +58,9 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
                 <DrawCuboid x1="-8" y1="3" z1="12" x2="8" y2="10" z2="12" type="planks"/>
                 <DrawCuboid x1="8" y1="3" z1="12" x2="8" y2="10" z2="-12" type="planks"/>
                 <DrawCuboid x1="-8" y1="3" z1="12" x2="-8" y2="10" z2="-12" type="planks"/>
+                <DrawCuboid x1="5" y1="3" z1="9" x2="5" y2="10" z2="-11" type="stone"/>
+                <DrawCuboid x1="5" y1="3" z1="9" x2="-5" y2="10" z2="9" type="stone"/>
+                <DrawCuboid x1="-5" y1="3" z1="9" x2="-5" y2="10" z2="-11" type="stone"/>
 			</DrawingDecorator>
                   <ServerQuitFromTimeUp timeLimitMs="10000"/>
                   <ServerQuitWhenAnyAgentFinishes/>
@@ -67,7 +70,7 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
               <AgentSection mode="Survival">
                 <Name>MalmoTutorialBot</Name>
 		<AgentStart>
-			<Placement x="1" y="4" z="1" yaw="0"/>
+			<Placement x="8" y="4" z="-11" yaw="0"/>
             <Inventory>
                 <InventoryItem slot="0" type="diamond_pickaxe"/>
             </Inventory>
@@ -145,9 +148,10 @@ while world_state.is_mission_running:
         observations = json.loads(msg)
         grid = observations.get(u'floor3x3', 0)
         print(grid)        
-   # agent_host.sendCommand("move 1")     
+        
    # agent_host.sendCommand("strafe -1") 
    # agent_host.sendCommand("strafe -1") 
+    agent_host.sendCommand("move 1")     
     time.sleep(0.1)
     world_state = agent_host.getWorldState()
     for error in world_state.errors:
