@@ -58,15 +58,22 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
                   <FlatWorldGenerator generatorString="3;7,2*3,22;1;lava_lake"/>
             <DrawingDecorator>
                 <DrawBlock x="2" y="3" z="2" type="diamond_block"/>
-                <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="planks"/>
+                <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="quartz_block"/>
                 
-                <DrawCuboid x1="-11 " y1="3" z1="15" x2="11" y2="10" z2="15" type="planks"/>
-                <DrawCuboid x1="11" y1="3" z1="14" x2="11" y2="10" z2="-14" type="planks"/>
-                <DrawCuboid x1="-11" y1="3" z1="14" x2="-11" y2="10" z2="-14" type="planks"/>
+                <DrawCuboid x1="-11 " y1="3" z1="15" x2="11" y2="10" z2="15" type="quartz_block"/>
+                <DrawCuboid x1="11" y1="3" z1="14" x2="11" y2="10" z2="-14" type="quartz_block"/>
+                <DrawCuboid x1="-11" y1="3" z1="14" x2="-11" y2="10" z2="-14" type="quartz_block"/>
 
                 <DrawCuboid x1="5" y1="3" z1="9" x2="5" y2="10" z2="-11" type="stone"/>
                 <DrawCuboid x1="5" y1="3" z1="9" x2="-5" y2="10" z2="9" type="stone"/>
                 <DrawCuboid x1="-5" y1="3" z1="9" x2="-5" y2="10" z2="-11" type="stone"/>
+                
+                <DrawCuboid x1="-10" y1="3" z1="14" x2="-10" y2="3" z2="-14" type="lava"/>
+                <DrawCuboid x1="10" y1="3" z1="14" x2="10" y2="3" z2="-14" type="lava"/>  
+                <DrawCuboid x1="-10 " y1="3" z1="14" x2="10" y2="3" z2="14" type="lava"/> 
+                <DrawCuboid x1="-6 " y1="3" z1="10" x2="6" y2="3" z2="10" type="lava"/> 
+                <DrawCuboid x1="6" y1="3" z1="10" x2="6" y2="3" z2="-14" type="lava"/>  
+                <DrawCuboid x1="-6" y1="3" z1="10" x2="-6" y2="3" z2="-14" type="lava"/>  
             </DrawingDecorator>
                   <ServerQuitFromTimeUp timeLimitMs="10000"/>
                   <ServerQuitWhenAnyAgentFinishes/>
@@ -404,7 +411,7 @@ for imap in range(num_maps):
     my_mission_record = MalmoPython.MissionRecordSpec()
 
     my_clients = MalmoPython.ClientPool()
-    my_clients.add(MalmoPython.ClientInfo('127.0.0.1', 10000)) # add Minecraft machines here as available
+    my_clients.add(MalmoPython.ClientInfo('127.0.0.1', 10001)) # add Minecraft machines here as available
 
     # Attempt to start a mission:
     max_retries = 3
