@@ -30,6 +30,7 @@ import uuid
 import json
 import tkinter as tk
 import malmoutils
+import math
 import random
 if sys.version_info[0] == 2:
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)  # flush print output immediately
@@ -37,80 +38,6 @@ else:
     import functools    
     import builtins
     builtins.print = functools.partial(print, flush=True)
-
-# More interesting generator string: "3;7,44*49,73,35:1,159:4,95:13,35:13,159:11,95:10,159:14,159:6,35:6,95:6;12;"
-
-missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-            <Mission xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            
-              <About>
-                <Summary>Hello world!</Summary>
-              </About>
-              
-              <ServerSection>
-        <ServerInitialConditions>
-            <Time>
-                <StartTime>12000</StartTime>
-                <AllowPassageOfTime>false</AllowPassageOfTime>
-            </Time>
-        </ServerInitialConditions>
-                <ServerHandlers>
-                  <FlatWorldGenerator generatorString="3;7,2*3,22;1;lava_lake"/>
-            <DrawingDecorator>
-                <DrawBlock x="2" y="3" z="2" type="diamond_block"/>
-                <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="quartz_block"/>
-                
-                <DrawCuboid x1="-11 " y1="3" z1="15" x2="11" y2="10" z2="15" type="quartz_block"/>
-                <DrawCuboid x1="11" y1="3" z1="14" x2="11" y2="10" z2="-14" type="quartz_block"/>
-                <DrawCuboid x1="-11" y1="3" z1="14" x2="-11" y2="10" z2="-14" type="quartz_block"/>
-
-                <DrawCuboid x1="5" y1="3" z1="9" x2="5" y2="10" z2="-11" type="stone"/>
-                <DrawCuboid x1="5" y1="3" z1="9" x2="-5" y2="10" z2="9" type="stone"/>
-                <DrawCuboid x1="-5" y1="3" z1="9" x2="-5" y2="10" z2="-11" type="stone"/>
-                
-                <DrawCuboid x1="-10" y1="3" z1="14" x2="-10" y2="3" z2="-14" type="lava"/>
-                <DrawCuboid x1="10" y1="3" z1="14" x2="10" y2="3" z2="-14" type="lava"/>  
-                <DrawCuboid x1="-10 " y1="3" z1="14" x2="10" y2="3" z2="14" type="lava"/> 
-                <DrawCuboid x1="-6 " y1="3" z1="10" x2="6" y2="3" z2="10" type="lava"/> 
-                <DrawCuboid x1="6" y1="3" z1="10" x2="6" y2="3" z2="-14" type="lava"/>  
-                <DrawCuboid x1="-6" y1="3" z1="10" x2="-6" y2="3" z2="-14" type="lava"/>  
-            </DrawingDecorator>
-                  <ServerQuitFromTimeUp timeLimitMs="10000"/>
-                  <ServerQuitWhenAnyAgentFinishes/>
-                </ServerHandlers>
-              </ServerSection>
-              
-              <AgentSection mode="Survival">
-                <Name>MalmoTutorialBot</Name>
-        <AgentStart>
-            <Placement x="8" y="4" z="-11" yaw="0"/>
-            <Inventory>
-                <InventoryItem slot="0" type="diamond_pickaxe"/>
-            </Inventory>
-        </AgentStart>
-                <AgentHandlers>
-                  <ObservationFromFullStats/>
-                  <ObservationFromGrid>
-                      <Grid name="floor3x3">
-                        <min x="-1" y="-1" z="-1"/>
-                        <max x="2" y="-1" z="2"/>
-                      </Grid>
-                  </ObservationFromGrid>
-                  <ContinuousMovementCommands turnSpeedDegs="180"/>
-                   <AgentQuitFromTouchingBlockType>
-                    <Block type="diamond_block"/>
-                  </AgentQuitFromTouchingBlockType>
-                </AgentHandlers>
-              </AgentSection>
-            </Mission>'''
-
-
-
-
-
-
-
-
 
 class TabQAgent(object):
     """Tabular Q-learning agent for discrete state/action spaces."""
@@ -360,6 +287,8 @@ agent_host.addOptionalFloatArgument('gamma', 'Discount factor.', 1.0)
 agent_host.addOptionalFlag('load_model', 'Load initial model from model_file.')
 agent_host.addOptionalStringArgument('model_file', 'Path to the initial model file', '')
 agent_host.addOptionalFlag('debug', 'Turn on debugging.')
+agent_host.addOptionalStringArgument( "recording_dir,r", "Path to location for saving mission recordings", "" )
+agent_host.addOptionalFlag( "record_video,v", "Record video stream" )
 
 try:
     agent_host.parse( sys.argv )
@@ -402,13 +331,20 @@ for imap in range(num_maps):
         canvas = canvas,
         root = root)
 
-    my_mission = MalmoPython.MissionSpec(missionXML, True)
+    
+
+    with open('maze.xml', 'r') as f:
+        print("Loading mission from maze.xml")
+        mission_xml = f.read()
+        my_mission = MalmoPython.MissionSpec(mission_xml, True)
+    #my_mission = MalmoPython.MissionSpec(missionXML, True)
+
     my_mission.removeAllCommandHandlers()
     my_mission.allowAllDiscreteMovementCommands()
-    my_mission.requestVideo( 320, 240 )
+    my_mission.requestVideo( 700, 700 )
     my_mission.setViewpoint( 1 )
 
-    my_mission_record = MalmoPython.MissionRecordSpec()
+    
 
     my_clients = MalmoPython.ClientPool()
     my_clients.add(MalmoPython.ClientInfo('127.0.0.1', 10000)) # add Minecraft machines here as available
@@ -424,6 +360,7 @@ for imap in range(num_maps):
     for i in range(num_repeats):
 
         print("\nMap %d - Mission %d of %d:" % ( imap, i+1, num_repeats ))
+        my_mission_record = malmoutils.get_default_recording_object(agent_host, "./save_%s-map%d-rep%d" % (expID, imap, i))
 
         for retry in range(max_retries):
             try:
