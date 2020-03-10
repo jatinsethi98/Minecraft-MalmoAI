@@ -22,17 +22,19 @@
       <FlatWorldGenerator generatorString="3;7,2*3,22;1;lava_lake"/>
         <DrawingDecorator>
 	
-		  <DrawBlock x="5" y="4" z="-2" type="mob_spawner" variant="Zombie"/>
+		  <!--<DrawBlock x="5" y="4" z="-2" type="mob_spawner" variant="Zombie"/>
+		  <DrawItem x="5" y="4" z="-2" type="spawn_egg"/>-->
+		  <DrawEntity x="5" y="4" z="-2" type="Zombie"/>
 		  
 	
           
 
 		  <!-- outer maze walls -->
-          <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="quartz_block"/>          
-          <DrawCuboid x1="-10 " y1="3" z1="16" x2="11" y2="10" z2="16" type="quartz_block"/>
-          <DrawCuboid x1="11" y1="3" z1="15" x2="11" y2="10" z2="-14" type="quartz_block"/>
-          <DrawCuboid x1="-10" y1="3" z1="15" x2="-10" y2="10" z2="-14" type="quartz_block"/>
-		  <DrawCuboid x1="11" y1="10" z1="156" x2="-11" y2="10" z2="-14" type="quartz_block"/>
+          <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="glowstone"/>          
+          <DrawCuboid x1="-10 " y1="3" z1="16" x2="11" y2="10" z2="16" type="glowstone"/>
+          <DrawCuboid x1="11" y1="3" z1="15" x2="11" y2="10" z2="-14" type="glowstone"/>
+          <DrawCuboid x1="-10" y1="3" z1="15" x2="-10" y2="10" z2="-14" type="glowstone"/>
+		  <DrawCuboid x1="11" y1="10" z1="156" x2="-11" y2="10" z2="-14" type="glowstone"/>
 		  
 		 		  
 		  
@@ -46,6 +48,9 @@
     <Name>Cristina</Name>
     <AgentStart>
       <Placement x="5.5" y="4" z="-9.5" yaw="0"/>
+	  <Inventory>
+			<InventoryItem slot="0" type="spawn_egg" variant="Zombie"/>
+	  </Inventory>
     </AgentStart>
     <AgentHandlers>
       <ObservationFromFullStats/>
