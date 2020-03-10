@@ -30,11 +30,13 @@
           
 
 		  <!-- outer maze walls -->
-          <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="glowstone"/>          
-          <DrawCuboid x1="-10 " y1="3" z1="16" x2="11" y2="10" z2="16" type="glowstone"/>
-          <DrawCuboid x1="11" y1="3" z1="15" x2="11" y2="10" z2="-14" type="glowstone"/>
-          <DrawCuboid x1="-10" y1="3" z1="15" x2="-10" y2="10" z2="-14" type="glowstone"/>
+          <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="obsidian"/>          
+          <DrawCuboid x1="-10 " y1="3" z1="16" x2="11" y2="10" z2="16" type="obsidian"/>
+          <DrawCuboid x1="11" y1="3" z1="15" x2="11" y2="10" z2="-14" type="obsidian"/>
+          <DrawCuboid x1="-10" y1="3" z1="15" x2="-10" y2="10" z2="-14" type="obsidian"/>
 		  <DrawCuboid x1="11" y1="10" z1="156" x2="-11" y2="10" z2="-14" type="glowstone"/>
+		  <DrawCuboid x1="11" y1="3" z1="156" x2="-11" y2="3" z2="-14" type="obsidian"/>
+		  
 		  
 		 		  
 		  
