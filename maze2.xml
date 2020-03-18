@@ -4,10 +4,6 @@
   <About>
     <Summary>Trial</Summary>
   </About>
-  
-  <ModSettings>
-    <MsPerTick>1</MsPerTick>
-  </ModSettings>
 
   <ServerSection>
       <ServerInitialConditions>
@@ -21,27 +17,22 @@
     <ServerHandlers>
       <FlatWorldGenerator generatorString="3;7,2*3,22;1;lava_lake"/>
         <DrawingDecorator>
-	
-		  <!--<DrawBlock x="5" y="4" z="-2" type="mob_spawner" variant="Zombie"/>
-		  <DrawItem x="5" y="4" z="-2" type="spawn_egg"/>-->
-		  <DrawEntity x="5" y="4" z="-2" type="Zombie"/>
-		  
-	
-          
 
-		  <!-- outer maze walls -->
-          <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="obsidian"/>          
-          <DrawCuboid x1="-10 " y1="3" z1="16" x2="11" y2="10" z2="16" type="obsidian"/>
-          <DrawCuboid x1="11" y1="3" z1="15" x2="11" y2="10" z2="-14" type="obsidian"/>
-          <DrawCuboid x1="-10" y1="3" z1="15" x2="-10" y2="10" z2="-14" type="obsidian"/>
-		  <DrawCuboid x1="11" y1="10" z1="156" x2="-11" y2="10" z2="-14" type="glowstone"/>
-		  <DrawCuboid x1="11" y1="3" z1="156" x2="-11" y2="3" z2="-14" type="obsidian"/>
-		  
-		  
-		 		  
-		  
+            <DrawCuboid x1="-12" y1="1" z1="-15" x2="12" y2="15" z2="150" type="air" /> <!-- hollow it out with air -->
+
+
+            <DrawEntity x="9" y="4" z="-2" type="Zombie"/>
+
+             <!-- outer maze walls -->
+            <DrawCuboid x1="-11" y1="3" z1="-12" x2="11" y2="10" z2="-12" type="obsidian"/>          
+            <DrawCuboid x1="-10 " y1="3" z1="16" x2="11" y2="10" z2="16" type="obsidian"/>
+            <DrawCuboid x1="11" y1="3" z1="15" x2="11" y2="10" z2="-14" type="obsidian"/>
+            <DrawCuboid x1="-10" y1="3" z1="15" x2="-10" y2="10" z2="-14" type="obsidian"/>
+            <DrawCuboid x1="11" y1="10" z1="156" x2="-11" y2="10" z2="-14" type="glowstone"/>
+            <DrawCuboid x1="11" y1="3" z1="156" x2="-11" y2="3" z2="-14" type="obsidian"/>
+
         </DrawingDecorator>
-      <ServerQuitFromTimeUp timeLimitMs="5000000"/>
+      <ServerQuitFromTimeUp timeLimitMs="50000"/>
       <ServerQuitWhenAnyAgentFinishes/>
     </ServerHandlers>
   </ServerSection>
@@ -50,9 +41,8 @@
     <Name>Cristina</Name>
     <AgentStart>
       <Placement x="5.5" y="4" z="-9.5" yaw="0"/>
-	  <Inventory>
-			<InventoryItem slot="0" type="spawn_egg" variant="Zombie"/>
-	  </Inventory>
+      <Inventory>
+        <InventoryItem slot="0" type="diamond_sword"/> </Inventory>
     </AgentStart>
     <AgentHandlers>
       <ObservationFromFullStats/>
@@ -66,19 +56,8 @@
           <Width>640</Width>
           <Height>480</Height>
       </VideoProducer>
-      <DiscreteMovementCommands>
-          <ModifierList type="deny-list">
-            <command>attack</command>
-          </ModifierList>
-      </DiscreteMovementCommands>
-      <RewardForTouchingBlockType>
-        <Block reward="-100.0" type="lava" behaviour="onceOnly"/>
-        <Block reward="100" type="diamond_block" behaviour="onceOnly"/>
-      </RewardForTouchingBlockType>
+      <ContinuousMovementCommands turnSpeedDegs="180"/>
       <RewardForSendingCommand reward="-1"/>
-      <AgentQuitFromTouchingBlockType>
-          <Block type="lava" />
-      </AgentQuitFromTouchingBlockType>
     </AgentHandlers>
   </AgentSection>
 

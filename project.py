@@ -11,8 +11,11 @@ import math
 import random
 import functools
 import builtins
+#import gym
 
 builtins.print = functools.partial(print, flush=True)
+
+#env = gym.make("")
 
 
 class TabQAgent(object):
@@ -82,13 +85,42 @@ class TabQAgent(object):
             # select the next action
             rnd = random.random()
             if rnd < self.epsilon:
-                a = random.randint(0, len(self.actions) - 1)
+
+                m = self.q_table[current_s].copy()
+                ll = list()
+                for i in range(len(around_me)):
+                    if around_me[i] == 'lava' or around_me[i] == 'stone':
+                        ll.append(i)
+
+                for i in sorted(ll, reverse=True):
+                    del m[i]
+
+                m = max(m)
+                l = list()
+                for x in range(0, len(self.actions)):
+                    if self.q_table[current_s][x] == m:
+                        l.append(x)
+                y = random.randint(0, len(l) - 1)
+                a = l[y]
+
+
+                #a = random.randint(0, len(self.actions) - 1)
             else:  # Random selection between the max value of actions for current position
                 m = self.q_table[current_s].copy()
                 ll = list()
                 for i in range(len(around_me)):
                     if around_me[i] == 'lava' or around_me[i] == 'stone':
                         ll.append(i)
+
+                # movenorth 1", "movesouth 1", "movewest 1", "moveeast 1
+                if self.prev_a == 0 and 1 not in ll and len(ll) != len(m) -1:
+                    ll.append(1)
+                elif self.prev_a == 1 and 0 not in ll and len(ll) != len(m) -1:
+                    ll.append(0)
+                elif self.prev_a == 2 and 3 not in ll and len(ll) != len(m) -1:
+                    ll.append(3)
+                elif self.prev_a == 3 and 2 not in ll and len(ll) != len(m) -1:
+                    ll.append(2)
 
                 for i in sorted(ll, reverse=True):
                     del m[i]
@@ -234,7 +266,10 @@ if agent_host.receivedArgument("help"):
 if agent_host.receivedArgument("test"):
     num_maps = 1
 else:
-    num_maps = 30000
+    num_maps = 1
+
+
+rewards_per_ep = []
 
 for imap in range(num_maps):
 
@@ -243,7 +278,7 @@ for imap in range(num_maps):
 
     agent = TabQAgent(
         actions=actionSet,
-        epsilon=0.02,#Exploration rate of the Q-learning agent
+        epsilon=0.03,#Exploration rate of the Q-learning agent
         alpha=0.2,#Learning rate of the Q-learning agent
         gamma=1.0, #Discount factor
         debug=agent_host.receivedArgument("debug"))
@@ -267,7 +302,7 @@ for imap in range(num_maps):
     agentID = 0
     expID = 'tabular_q_learning'
 
-    num_repeats = 150
+    num_repeats = 50
     cumulative_rewards = []
 
     for i in range(num_repeats):
@@ -314,6 +349,8 @@ for imap in range(num_maps):
     print("Cumulative rewards for all %d runs:" % num_repeats)
     print(cumulative_rewards)
 
+    rewards_per_ep.append(cumulative_rewards)
+
 """
 #agent_host.sendCommand("pitch 0.2")
 # Loop until mission ends:
@@ -336,5 +373,6 @@ while world_state.is_mission_running:
         print("Error:",error.text)
 """
 print()
+print(rewards_per_ep)
 print("Mission ended")
 # Mission has ended.
